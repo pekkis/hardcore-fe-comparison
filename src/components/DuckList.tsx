@@ -8,8 +8,14 @@ import {
   LayoutGroup,
   useReducedMotion
 } from "framer-motion";
+import { ascend, descend, sortWith, prop } from "ramda";
 
 import styles from "./DuckList.module.css";
+
+const duckSorter = sortWith<DuckType>([
+  ascend(prop("lastName")),
+  ascend(prop("firstName"))
+]);
 
 type Props = {
   ducks: DuckType[];
@@ -56,6 +62,8 @@ const DuckList: VFC<Props> = ({ ducks, fireDuck, showMetadata = false }) => {
 
   const averageAge = ducks.reduce((a, d) => a + d.age, 0) / ducks.length;
 
+  const sortedDucks = duckSorter(ducks);
+
   return (
     <section>
       {showMetadata && (
@@ -72,7 +80,7 @@ const DuckList: VFC<Props> = ({ ducks, fireDuck, showMetadata = false }) => {
           animate="visible"
         >
           <AnimatePresence>
-            {ducks.map((duck) => (
+            {sortedDucks.map((duck) => (
               <motion.li layout key={duck.id} variants={variants} exit="exit">
                 <Duck fireDuck={fireDuck} duck={duck} />
               </motion.li>

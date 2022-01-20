@@ -3,7 +3,7 @@
  */
 
 import { describe, test, beforeEach, afterEach, expect } from "@jest/globals";
-import { render, fireEvent, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { createRandomDuck } from "../services/random";
 import DuckList from "./DuckList";
@@ -29,9 +29,6 @@ describe("DuckList", () => {
       </BrowserRouter>
     );
 
-    // console.log(ducks, "ducko");
-
-    // Wait for page to update with query text
     const items = screen.getAllByRole("listitem");
     expect(items.length).toEqual(ducks.length);
 

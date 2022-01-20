@@ -7,8 +7,9 @@ import useStore from "../services/store";
 import Spinner from "./Spinner";
 import Helmet from "react-helmet";
 import { Outlet } from "react-router";
+import mlrdLogo from "../assets/favicon.png";
 
-import { mainClass, headingClass, headerClass } from "./App.css";
+import { mainClass, headingClass, headerClass, logoClass } from "./App.css";
 
 const App: FC = () => {
   const [renderCount, setRenderCount] = useState<number>(0);
@@ -42,7 +43,15 @@ const App: FC = () => {
       </Helmet>
       {operationsPending > 0 && <Spinner />}
       <header className={headerClass}>
-        <h1 className={headingClass}>Mallard ERP</h1>
+        <h1 className={headingClass}>
+          <img
+            alt="Mallard ERP"
+            src={mlrdLogo}
+            width="50"
+            className={logoClass}
+          />
+          Mallard ERP
+        </h1>
       </header>
       <main className={mainClass}>
         <p>
