@@ -5,7 +5,7 @@
   import { cleanse } from "../services/instance";
   import Spinner from "./Spinner.svelte";
   import { Router, Route } from "svelte-routing";
-  import IndexPage from "./IndexPage.svelte";
+  import IndexPage from "./LazyIndexPage.svelte";
   import DuckPage from "./DuckPage.svelte";
   import mlrdLogo from "../assets/favicon.png";
 
@@ -99,10 +99,30 @@
 
   <Router {url}>
     <Route path="/">
-      <IndexPage {hireDuck} {isInitialized} ducks={duckList} {fireDuck} />
+      {#await IndexPage}
+        pending
+      {:then Component}
+        <svelte:component
+          this={Component}
+          {hireDuck}
+          {isInitialized}
+          ducks={duckList}
+          {fireDuck}
+        />
+      {/await}
     </Route>
     <Route path="/duck/:id" let:params>
-      <DuckPage id={params.id.substring(1)} {ducks} />
+      {#await DuckPage}
+        pending
+      {:then Component}
+        <svelte:component
+          this={Component.default}
+          {hireDuck}
+          {isInitialized}
+          ducks={duckList}
+          {fireDuck}
+        />
+      {/await}
     </Route>
   </Router>
 </main>
