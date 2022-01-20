@@ -4,7 +4,7 @@
   import duckService from "../services/duck";
   import { cleanse } from "../services/instance";
   import Spinner from "./Spinner.svelte";
-  import { Router, Route } from "svelte-navigator";
+  import { Router, Route } from "svelte-routing";
   import IndexPage from "./IndexPage.svelte";
   import DuckPage from "./DuckPage.svelte";
   import mlrdLogo from "../assets/favicon.png";

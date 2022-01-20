@@ -40,7 +40,7 @@ describe("IndexPage", () => {
 
     const user = userEvent.setup();
 
-    render(<Root />);
+    render(Root);
 
     const items = await waitFor(() => screen.getAllByRole("listitem"));
     expect(items.length).toEqual(ducks.length);

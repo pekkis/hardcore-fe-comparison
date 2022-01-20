@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Link } from "svelte-navigator";
+  import { Link } from "svelte-routing";
   import type { DuckType } from "src/services/duck";
   import Button from "./Button.svelte";
   export let duck: DuckType;
