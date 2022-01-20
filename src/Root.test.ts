@@ -9,9 +9,9 @@ import {
   screen,
   waitFor,
   act
-} from "@testing-library/react";
+} from "@testing-library/svelte";
 import { createRandomDuck } from "./services/random";
-import Root from "./Root";
+import Root from "./Root.svelte";
 import userEvent from "@testing-library/user-event";
 import { setupServer } from "msw/node";
 

@@ -2,7 +2,7 @@ import { Random, browserCrypto, nodeCrypto } from "random-js";
 import faker from "@faker-js/faker";
 import { v4 } from "uuid";
 import { DateTime } from "luxon";
-import { DuckGenderType, DuckType } from "./duck";
+import type { DuckGenderType, DuckType } from "./duck";
 
 export const random = new Random(
   process.env.NODE_ENV === "test" ? nodeCrypto : browserCrypto

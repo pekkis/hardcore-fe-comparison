@@ -9,14 +9,5 @@ module.exports = {
         glob: true
       }
     ]
-  ],
-
-  plugins: [
-    [
-      "@babel/plugin-transform-react-jsx",
-      {
-        runtime: "automatic"
-      }
-    ]
   ]
 };

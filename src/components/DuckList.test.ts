@@ -3,10 +3,9 @@
  */
 
 import { describe, test, beforeEach, afterEach, expect } from "@jest/globals";
-import { render, fireEvent, screen, waitFor } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
+import { render, fireEvent, screen, waitFor } from "@testing-library/svelte";
 import { createRandomDuck } from "../services/random";
-import DuckList from "./DuckList";
+import DuckListTestWrapper from "./DuckListTestWrapper.svelte";
 import userEvent from "@testing-library/user-event";
 
 describe("DuckList", () => {
@@ -23,11 +22,7 @@ describe("DuckList", () => {
     const fireDuck = jest.fn();
     const ducks = Array.from({ length: 50 }).map(() => createRandomDuck());
 
-    render(
-      <BrowserRouter>
-        <DuckList ducks={ducks} fireDuck={fireDuck} />
-      </BrowserRouter>
-    );
+    render(DuckListTestWrapper, { ducks, fireDuck });
 
     // console.log(ducks, "ducko");
 
