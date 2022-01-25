@@ -1,9 +1,11 @@
 import "normalize.css";
 
-import Root from "./Root.svelte";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
-const root = new Root({
-  target: document.getElementById("root")
-});
+library.add(faSpinner);
 
-export default root;
+import { createApp } from "vue";
+import Root from "./Root.vue";
+
+createApp(Root).mount("#root");
