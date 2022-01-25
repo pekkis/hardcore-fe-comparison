@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 <template>
   <div class="icon">
-    <FontAwesomeIcon icon="spinner" />
+    <FontAwesomeIcon icon="spinner" class="rubals" />
   </div>
 </template>
 
@@ -16,5 +16,21 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   color: rgb(0 0 0);
   margin: 1em;
   z-index: 100000;
+}
+.rubals {
+  animation-duration: 5s;
+  animation-name: rubale;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rubale {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(359deg);
+  }
 }
 </style>

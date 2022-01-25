@@ -1,53 +1,23 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, onBeforeUnmount, onUpdated, computed } from 'vue'
 import mlrdLogo from "../assets/favicon.png";
-import { DuckType } from '../services/duck';
+import { DuckProspectType, DuckType } from '../services/duck';
 import Spinner from "./Spinner.vue";
 import duckService from "../services/duck";
 import { cleanse as cleanseSrv } from "../services/instance";
 import DuckList from './DuckList.vue';
+import HireDuckForm from './HireDuckForm.vue';
+import { RouterView } from 'vue-router';
+import { useDuckStore } from "../stores/duckStore";
 
 let renderCount = ref<number>(0)
 
-let state = reactive<{
-  ducks: Record<string, DuckType>;
-  numberOfOperations: number;
-  isInitialized: boolean;
-}>({
-  numberOfOperations: 0,
-  ducks: {},
-  isInitialized: false
-})
-
-const isGood = (duck: DuckType) => {
-  if (duck.relatedToCEO) {
-    return true;
-  }
-
-  return duck.age < 8 && duck.age >= 1 && !duck.migratesForWinters;
-};
-
-
-const badDucks = computed(() => {
-  return Object.values(state.ducks).filter(d => !isGood(d))
-})
-
-const goodDucks = computed(() => {
-  return Object.values(state.ducks).filter(isGood)
-})
+const duckStore = useDuckStore();
 
 const cleanse = async () => {
   console.log('CLEANSING')
   await cleanseSrv()
   console.log('CLEANSED!')
-}
-
-const fireDuck = async (id: string) => {
-  state.ducks[id].isBeingFired = true
-  state.numberOfOperations = state.numberOfOperations + 1
-  await duckService.fireDuck(id)
-  state.numberOfOperations = state.numberOfOperations - 1
-  delete state.ducks[id]
 }
 
 let interval: number | undefined
@@ -60,12 +30,7 @@ onMounted(() => {
 });
 
 onMounted(async () => {
-
-  state.numberOfOperations = state.numberOfOperations + 1;
-  const ret = await duckService.getDucks()
-  state.numberOfOperations = state.numberOfOperations - 1;
-  state.ducks = Object.fromEntries(ret.map(d => [d.id, d]))
-  state.isInitialized = true
+  duckStore.getDucks();
 });
 
 onBeforeUnmount(() => {
@@ -79,25 +44,11 @@ onBeforeUnmount(() => {
     <h1>
       <img width="50" alt="Mallard ERP" v-bind:src="mlrdLogo" />Mallard ERP
     </h1>
-    <Spinner v-if="state.numberOfOperations > 0" />
+    <Spinner v-if="duckStore.numberOfOperations > 0" />
   </header>
 
   <main v-bind="$attrs">
-    <div v-if="state.isInitialized">
-      <p>
-        Rendered {{ renderCount }} times!
-        <button @click="cleanse">cleanse</button>
-      </p>
-
-      <h2>Bad ducks</h2>
-      <DuckList :fire-duck="fireDuck" :ducks="badDucks" showMetadata />
-
-      <h2>Good ducks</h2>
-      <DuckList :fire-duck="fireDuck" :ducks="goodDucks" />
-    </div>
-    <div v-else>
-      <em>HOLD YER HORSES!</em>
-    </div>
+    <RouterView />
   </main>
 </template>
 

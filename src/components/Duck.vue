@@ -2,6 +2,7 @@
 import { defineProps } from 'vue'
 import { DuckType } from '../services/duck';
 import Button from './Button.vue';
+import { RouterLink } from 'vue-router';
 
 const props = defineProps<{
   duck: DuckType
@@ -18,8 +19,14 @@ const fire = () => {
   <div class="duck" v-bind:class="{ female: duck.gender === 1, male: duck.gender === 0 }">
     <div class="info">
       <div class="name">
-        <strong>{{ duck.lastName }}</strong>
-        , {{ duck.firstName }}
+        <RouterLink :to="{
+          name: 'duck', params: { id: duck.id }
+        }">
+          <span>
+            <strong>{{ duck.lastName }}</strong>
+            , {{ duck.firstName }}
+          </span>
+        </RouterLink>
       </div>
       <div class="block">
         <em>{{ duck.age.toFixed(2) }} y</em>

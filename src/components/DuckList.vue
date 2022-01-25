@@ -2,6 +2,13 @@
 import { defineProps, computed } from 'vue'
 import { DuckType, getDucks } from '../services/duck';
 import Duck from "./Duck.vue";
+import { sortWith, descend, ascend, prop } from "ramda";
+
+const duckSorter = sortWith<DuckType>([
+  ascend(prop("lastName")),
+  ascend(prop("firstName"))
+]);
+
 
 const props = defineProps<{
   ducks: DuckType[];
@@ -14,7 +21,7 @@ const averageAge = computed(() => {
   return props.ducks.reduce((a, duck) => a + duck.age, 0) / props.ducks.length;
 });
 
-
+const sortedDucks = computed(() => duckSorter(props.ducks));
 
 </script>
 
@@ -24,8 +31,18 @@ const averageAge = computed(() => {
       v-if="showMetadata"
     >Number of ducks: {{ ducks.length }}, average age: {{ averageAge.toFixed(2) }}</p>
 
-    <ul>
-      <li v-for="duck in ducks" :duck="duck" :key="duck.id">
+    <ul
+      v-motion
+      :initial="{
+        opacity: 0,
+        x: -500,
+      }"
+      :enter="{
+        opacity: 1,
+        x: 0,
+      }"
+    >
+      <li v-motion v-for="duck in sortedDucks" :duck="duck" :key="duck.id">
         <Duck :duck="duck" :fire-duck="fireDuck" />
       </li>
     </ul>
