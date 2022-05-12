@@ -1,8 +1,4 @@
-/**
- * @jest-environment jsdom
- */
-
-import { describe, test, beforeEach, afterEach, expect } from "@jest/globals";
+import { describe, test, beforeEach, afterEach, expect } from "vitest";
 import { render, fireEvent, screen, waitFor } from "@testing-library/svelte";
 import { createRandomDuck } from "../services/random";
 import DuckListTestWrapper from "./DuckListTestWrapper.svelte";

@@ -1,8 +1,4 @@
-/**
- * @jest-environment jsdom
- */
-
-import { describe, test, beforeEach, afterEach, expect } from "@jest/globals";
+import { describe, expect, test } from "vitest";
 import {
   render,
   fireEvent,
