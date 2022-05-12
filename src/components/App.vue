@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, onBeforeUnmount, onUpdated, computed } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import mlrdLogo from "../assets/favicon.png";
-import { DuckProspectType, DuckType } from '../services/duck';
 import Spinner from "./Spinner.vue";
-import duckService from "../services/duck";
 import { cleanse as cleanseSrv } from "../services/instance";
-import DuckList from './DuckList.vue';
-import HireDuckForm from './HireDuckForm.vue';
 import { RouterView } from 'vue-router';
 import { useDuckStore } from "../stores/duckStore";
 

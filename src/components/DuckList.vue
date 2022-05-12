@@ -9,7 +9,6 @@ const duckSorter = sortWith<DuckType>([
   ascend(prop("firstName"))
 ]);
 
-
 const props = defineProps<{
   ducks: DuckType[];
   fireDuck: (id: string) => void;
@@ -48,7 +47,7 @@ const sortedDucks = computed(() => duckSorter(props.ducks));
     </ul>
   </div>
   <div v-else>
-    <p>zero ducks given</p>
+    <p>zero ducks given!</p>
   </div>
 </template>
 

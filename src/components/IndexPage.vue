@@ -53,5 +53,3 @@ body {
   padding: 0;
 }
 </style>
-<style scoped>
-</style>
